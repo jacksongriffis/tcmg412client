@@ -39,6 +39,14 @@ def fibonacci(num):
     return
 
 def factorial(num):
+	response = requests.get(API_HOST + "/factorial/" + num)
+	if response.status_code == 409:
+		print("Error: num ", num, " has no value!")
+		return
+	elif response.status_code == 200:
+		print("Value of ", num, " is ", response.json()["value"])
+	else:
+		print("Error: HTTP request responded with status code ", response.status_code)
     return
     
 def slack_alert(message):
